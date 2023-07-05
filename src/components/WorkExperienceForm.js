@@ -27,6 +27,18 @@ export class WorkExperienceForm extends Component {
         });
     }
 
+    handleEdit = () => {
+      this.setState({
+        display: false
+      })
+    }
+
+    handleAdd = () => {
+        return (
+            <WorkExperienceForm/>
+        )
+    }
+
     onSubmitTask = (e) => {
         e.preventDefault();
         this.setState({
@@ -61,7 +73,13 @@ export class WorkExperienceForm extends Component {
                 </form>
             </div>
             }
-            {this.state.display && <WorkExperience workExp={workExp}/>}
+            {
+                this.state.display && 
+                <>
+                <WorkExperience workExp={workExp}/>
+                <button onClick={this.handleEdit}>edit</button> 
+                </>
+            }
             </>
         )
     }

@@ -5,8 +5,7 @@ const Education = (props) => {
         <div>
             <div id="schoolName">{education.schoolName}</div>
             <div id="titleOfStudy">{education.titleOfStudy}</div>
-            <div id="fromDate">{education.fromDate}</div>
-            <div id="toDate">{education.toDate}</div>
+            <div id="date">{education.fromDate} - {education.toDate}</div>
         </div>
     )
 }

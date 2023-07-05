@@ -27,6 +27,12 @@ export class GeneralInfoForm extends Component {
       });
     }
 
+    handleEdit = () => {
+      this.setState({
+        display: false
+      })
+    }
+
     onSubmitTask = (e) => {
       e.preventDefault();
       this.setState({
@@ -56,7 +62,11 @@ export class GeneralInfoForm extends Component {
           </div>          
           }
           {
-            this.state.display && <GeneralInfo general={general}/>
+            this.state.display && 
+            <>
+            <GeneralInfo general={general}/>
+            <button onClick={this.handleEdit}>edit</button>
+            </>
           }
           </>
         )

@@ -26,6 +26,12 @@ export class EducationForm extends Component {
         });
     }
 
+    handleEdit = () => {
+        this.setState({
+            display: false
+        })
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
@@ -46,16 +52,22 @@ export class EducationForm extends Component {
                                 <input type="text" placeholder="Title of Study" name="titleOfStudy" onChange={this.handleChange} value={education.titleOfStudy}/>
                             </div>
                             <div id="date">
-                                <input type="date" name="fromDate" onChange={this.handleChange} value={education.fromDate}/>
                                 <label htmlFor="fromDate">From: </label>
-                                <input type="date" name="toDate" onChange={this.handleChange} value={education.toDate}/>
+                                <input type="date" name="fromDate" onChange={this.handleChange} value={education.fromDate}/>
                                 <label htmlFor="toDate">To: </label>
+                                <input type="date" name="toDate" onChange={this.handleChange} value={education.toDate}/>
                             </div>
                             <input type="submit"/>
                         </form>
                     </div>
                 }
-                {this.state.display && <Education education={education}/>}
+                {
+                    this.state.display && 
+                    <>
+                        <Education education={education}/>
+                        <button onClick={this.handleEdit}>edit</button>
+                    </>
+                }
             </>
         )
     }
