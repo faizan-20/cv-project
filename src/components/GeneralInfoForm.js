@@ -13,7 +13,8 @@ export class GeneralInfoForm extends Component {
           email: "",
           phn: "",
           location: ""
-        }
+        },
+        display: false
       }
     }
 
@@ -28,12 +29,17 @@ export class GeneralInfoForm extends Component {
 
     onSubmitTask = (e) => {
       e.preventDefault();
-      console.log(this.state);
+      this.setState({
+        display: true
+      })
     }
 
     render() {
         const {general} = this.state;
         return (
+          <>
+          {
+            !this.state.display && 
           <div id="generalInfo">
             <form action="#" onSubmit={this.onSubmitTask}> 
               <div id="name">
@@ -47,8 +53,12 @@ export class GeneralInfoForm extends Component {
               </div>
               <input type="submit" />
             </form>
-            <GeneralInfo general={general}/>
-          </div>
+          </div>          
+          }
+          {
+            this.state.display && <GeneralInfo general={general}/>
+          }
+          </>
         )
     }
 }
