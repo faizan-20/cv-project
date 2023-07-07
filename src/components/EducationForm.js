@@ -1,74 +1,68 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Education from "./Education";
 
-export class EducationForm extends Component {
+const EducationForm = () => {
 
-    constructor() {
-        super();
+    const [schoolName, setSchoolName] = useState("");
+    const [titleOfStudy, setTitleOfStudy] = useState("");
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
+    const [display, setDisplay] = useState("");
 
-        this.state = {
-            education: {
-                schoolName: "",
-                titleOfStudy: "",
-                fromDate: "",
-                toDate: ""
-            },
-            display: false
-        }
+    const handleEdit = () => {
+        setDisplay(false);
     }
 
-    handleChange = (e) => {
-        this.setState({
-            education: {
-                ...this.state.education,
-                [e.target.name]: e.target.value
-            }
-        });
-    }
-
-    handleEdit = () => {
-        this.setState({
-            display: false
-        })
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({
-            display: true
-        })
+        setDisplay(true);
     }
 
-    render() {
-        const { education } = this.state;
-        return (
-            <>
-                {
-                    !this.state.display &&
-                    <div id="education">
-                        <form action="#" onSubmit={this.handleSubmit}>
-                            <div id="school">
-                                <input type="text" placeholder="School Name" name="schoolName" onChange={this.handleChange} value={education.schoolName}/>
-                                <input type="text" placeholder="Title of Study" name="titleOfStudy" onChange={this.handleChange} value={education.titleOfStudy}/>
-                            </div>
-                            <div id="date">
-                                <label htmlFor="fromDate">From: </label>
-                                <input type="date" name="fromDate" onChange={this.handleChange} value={education.fromDate}/>
-                                <label htmlFor="toDate">To: </label>
-                                <input type="date" name="toDate" onChange={this.handleChange} value={education.toDate}/>
-                            </div>
-                            <input type="submit"/>
-                        </form>
-                    </div>
-                }
-                {
-                    this.state.display && 
-                    <>
-                        <Education education={education}/>
-                        <button onClick={this.handleEdit}>edit</button>
-                    </>
-                }
-            </>
-        )
-    }
+    return (
+        <>
+            {
+                !display &&
+                <div id="education">
+                    <form action="#" onSubmit={handleSubmit}>
+                        <div id="school">
+                            <input 
+                                type="text" placeholder="School Name" name="schoolName" 
+                                onChange={(e) => setSchoolName(e.target.value)} 
+                                value={schoolName}
+                            />
+                            <input 
+                                type="text" placeholder="Title of Study" name="titleOfStudy" 
+                                onChange={(e) => setTitleOfStudy(e.target.value)} 
+                                value={titleOfStudy}
+                            />
+                        </div>
+                        <div id="date">
+                            <label htmlFor="fromDate">From: </label>
+                            <input 
+                                type="date" name="fromDate" 
+                                onChange={(e) => setFromDate(e.target.value)} 
+                                value={fromDate}
+                            />
+                            <label htmlFor="toDate">To: </label>
+                            <input 
+                                type="date" name="toDate" 
+                                onChange={(e) => setToDate(e.target.value)} 
+                                value={toDate}
+                            />
+                        </div>
+                        <input type="submit"/>
+                    </form>
+                </div>
+            }
+            {
+                display && 
+                <>
+                    <Education education={{schoolName, titleOfStudy, fromDate, toDate}}/>
+                    <button onClick={handleEdit}>edit</button>
+                </>
+            }
+        </>
+    )
 }
+
+export default EducationForm

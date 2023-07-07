@@ -5,7 +5,7 @@ const WorkExperience = (props) => {
         <div>
             <div id="companyName">{workExp.companyName}</div>
             <div id="position">{workExp.positionTitle}</div>
-            <div id="date">{workExp.from} - {workExp.to}</div>
+            <div id="date">{workExp.fromDate} - {workExp.toDate}</div>
             <div id="mainTasl">{workExp.mainTask}</div>
         </div>
     );

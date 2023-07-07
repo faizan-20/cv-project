@@ -1,88 +1,76 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import WorkExperience from './WorkExperience';
 
-export class WorkExperienceForm extends Component {
+const WorkExperienceForm = () => {
 
-    constructor() {
-        super();
+    const [companyName, setCompanyName] = useState("");
+    const [positionTitle, setPositionTitle] = useState("");
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
+    const [mainTask,setMainTask] = useState("");
+    const [display, setDisplay] = useState(false);
 
-        this.state = {
-            workExp: {
-                companyName: "",
-                positionTitle: "",
-                from: "",
-                to: "",
-                mainTask: ""
-            },
-            display: false
-        }
+    const handleEdit = () => {
+        setDisplay(false);
     }
 
-    handleChange = (e) => {
-        this.setState({
-            workExp: {
-                ...this.state.workExp,
-                [e.target.name]: e.target.value
-            }
-        });
-    }
-
-    handleEdit = () => {
-      this.setState({
-        display: false
-      })
-    }
-
-    handleAdd = () => {
-        return (
-            <WorkExperienceForm/>
-        )
-    }
-
-    onSubmitTask = (e) => {
+    const onSubmitTask = (e) => {
         e.preventDefault();
-        this.setState({
-            display: true
-        });
+        setDisplay(true);
     }
 
-    render() {
-
-        const { workExp } = this.state;
-
-        return (
+    return (
+        <>
+        {
+        !display && 
+        <div id="workExperience">
+            <form action="#" onSubmit={onSubmitTask}>
+                <div id="company">
+                    <input 
+                        type="text" placeholder='Compony Name' name="companyName" 
+                        onChange={(e) => setCompanyName(e.target.value)} 
+                        value={companyName}
+                    />
+                    <input 
+                        type="text" placeholder='Position Title' name='positionTitle' 
+                        onChange={(e) => setPositionTitle(e.target.value)} 
+                        value={positionTitle}
+                    />
+                </div>
+                <div id="duration">
+                    <label htmlFor="from">From</label>
+                    <input 
+                        type="date" name='from' id='from' 
+                        onChange={(e) => setFromDate(e.target.value)} 
+                        value={fromDate}
+                    />
+                    <label htmlFor="to">To</label>
+                    <input 
+                        type="date" name="to" id="to" 
+                        onChange={(e) => setToDate(e.target.value)} 
+                        value={toDate}
+                    />
+                </div>
+                <div id="mainTaskDiv">
+                    <input 
+                        type="textarea" name="mainTask" id="mainTask" placeholder='Main Tasks' 
+                        onChange={(e) => setMainTask(e.target.value)} 
+                        value={mainTask}
+                    />
+                    <input type="submit"/>
+                </div>
+            </form>
+        </div>
+        }
+        {
+            display && 
             <>
-            {
-            !this.state.display && 
-            <div id="workExperience">
-                <form action="#" onSubmit={this.onSubmitTask}>
-                    <div id="company">
-                        <input type="text" placeholder='Compony Name' name="companyName" onChange={this.handleChange} value={workExp.companyName}/>
-                        <input type="text" placeholder='Position Title' name='positionTitle' onChange={this.handleChange} value={workExp.positionTitle}/>
-                    </div>
-                    <div id="duration">
-                        <label htmlFor="from">From</label>
-                        <input type="date" name='from' id='from' onChange={this.handleChange} value={workExp.from}/>
-                        <label htmlFor="to">To</label>
-                        <input type="date" name="to" id="to" onChange={this.handleChange} value={workExp.to}/>
-                    </div>
-                    <div id="mainTaskDiv">
-                        <input type="textarea" name="mainTask" id="mainTask" placeholder='Main Tasks' onChange={this.handleChange} value={workExp.mainTask}/>
-                        <input type="submit"/>
-                    </div>
-                </form>
-            </div>
-            }
-            {
-                this.state.display && 
-                <>
-                <WorkExperience workExp={workExp}/>
-                <button onClick={this.handleEdit}>edit</button> 
-                </>
-            }
+            <WorkExperience workExp={{companyName, positionTitle, fromDate, toDate, mainTask}}/>
+            <button onClick={handleEdit}>edit</button> 
             </>
-        )
-    }
+        }
+        </>
+    )
 }
 
 export default WorkExperienceForm
